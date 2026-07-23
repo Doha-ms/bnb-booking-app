@@ -1,0 +1,103 @@
+{{ template "base" .}}
+
+{{define "content"}}
+
+<div class="container">
+    <div class="row">
+<div class="col">
+         <img src="/static/images/generals-quarters.png" class="img-fluid img-thumbnail max-auto d-block room-image" alt="generals-quarters">
+
+</div>
+    </div>
+</div>
+
+ 
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center mt-4">generals </h1>
+                <p>
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col text-center">
+
+                <a href="#!" id="check-avail-bttn" class="btn btn-success">Check Availability</a>
+
+            </div>
+        </div>
+
+    </div>
+{{end}}
+
+{{define "js"}}
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        'use strict';
+
+        // 1. Form Validation
+        const forms = document.querySelectorAll('.needs-validation');
+        forms.forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+
+        // 2. Check Availability Button Interactivity (Add this here!)
+        const checkAvailBttn = document.getElementById('check-avail-bttn');
+        if (checkAvailBttn !== null) {
+            checkAvailBttn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log("Button clicked!");
+                let html = `
+                <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row" id="reservation-dates-modal">
+                                <div class="col">
+                                    <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+                                </div>
+                                <div class="col">
+                                    <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                `;
+                attention.custom({
+                    title: 'Choose your dates',
+                    msg: html,
+                });
+            });
+        }
+
+        // 3. DateRangePicker (Make sure element exists before calling)
+        const elem = document.getElementById('reservation-dates');
+        if (elem) {
+            const rangePicker = new DateRangePicker(elem, {
+                format: "yyyy-mm-dd",
+            });
+        }
+    });
+
+    // ... keep your notify, notifyModal, and Prompt functions below ...
+</script>
+   
+{{end}}

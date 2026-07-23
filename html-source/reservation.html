@@ -85,16 +85,7 @@
         <div class="col-md-3"></div>
     </div>
 
-    <div class="row">
-        <div class="col">
-            <p id="myParagraph">This is some text.</p>
-            <p>
-                <button id="colorButton" class="btn btn-outline-secondary">Click me</button>
-            </p>
-        </div>
-    </div>
-
-</div>
+    
 
 
 <footer class="my-footer">
@@ -141,34 +132,9 @@
             }, false);
         });
 
-        // 2. Button Interactivity
-        const colorButton = document.getElementById('colorButton');
-        const myParagraph = document.getElementById('myParagraph');
+  
         
-        colorButton.addEventListener('click', () => {
-        let html = `
-        <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-row" id="reservation-dates-modal">
-                        <div class="col">
-                            <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
-                        </div>
-                        <div class="col">
-                            <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </form>
-        `;
-        attention.custom({
-            title: 'Choose your dates',
-            msg: html,
-        });
-
-              });
+      
 
         // 3. DateRangePicker
         const elem = document.getElementById('reservation-dates');

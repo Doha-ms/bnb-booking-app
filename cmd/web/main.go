@@ -40,6 +40,9 @@ func main() {
 	handlers.NewHandlers(repo)
 	render.NewTemplate(&app)
 
+	// Correct way to serve static files in Go:
+	fileServer := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/", http.StripPrefix("/static", fileServer))
 	fmt.Printf("starting application at portt %s", portNumber)
 
 	srv := &http.Server{
