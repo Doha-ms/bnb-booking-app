@@ -43,7 +43,6 @@
 
 {{define "js"}}
 <script>
-
     document.addEventListener('DOMContentLoaded', () => {
         'use strict';
 
@@ -59,7 +58,7 @@
             }, false);
         });
 
-        // 2. Check Availability Button Interactivity (Add this here!)
+        // 2. Check Availability Button Interactivity
         const checkAvailBttn = document.getElementById('check-avail-bttn');
         if (checkAvailBttn !== null) {
             checkAvailBttn.addEventListener('click', (e) => {
@@ -81,23 +80,42 @@
                     </div>
                 </form>
                 `;
+                
                 attention.custom({
                     title: 'Choose your dates',
                     msg: html,
+                    willOpen: () => {
+                        const elem = document.getElementById("reservation-dates-modal");
+                        const rp = new DateRangePicker(elem, {
+                            format: 'yyyy-mm-dd',
+                            showOnFocus: true,
+                        });
+                    },
+                    didOpen: () => {
+                        document.getElementById("start").removeAttribute("disabled");
+                        document.getElementById("end").removeAttribute("disabled");
+                    },
+                    callback: function(result) {
+                        console.log("called");
+
+                        let form = document.getElementById("check-availability-form");
+                        let formData = new FormData(form);
+                        formData.append("csrf_token", "{{.CSRFToken}}");
+
+                        fetch('/search-availability-json', {
+                            method: "post",
+                            body: formData,
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data);
+                                console.log(data.ok);
+                                console.log(data.message);
+                            });
+                    }
                 });
             });
         }
-
-        // 3. DateRangePicker (Make sure element exists before calling)
-        const elem = document.getElementById('reservation-dates');
-        if (elem) {
-            const rangePicker = new DateRangePicker(elem, {
-                format: "yyyy-mm-dd",
-            });
-        }
     });
-
-    // ... keep your notify, notifyModal, and Prompt functions below ...
 </script>
-   
 {{end}}

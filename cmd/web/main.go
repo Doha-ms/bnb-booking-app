@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/doha-ms/bnb-booking-app/cmd/pkg/config"
-	"github.com/doha-ms/bnb-booking-app/cmd/pkg/handlers"
-	"github.com/doha-ms/bnb-booking-app/cmd/pkg/render"
+	"github.com/doha-ms/bnb-booking-app/internal/config"
+	"github.com/doha-ms/bnb-booking-app/internal/handlers"
+	"github.com/doha-ms/bnb-booking-app/internal/render"
 
 	"net/http"
 

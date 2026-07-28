@@ -7,14 +7,15 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/doha-ms/bnb-booking-app/cmd/pkg/config"
-	"github.com/doha-ms/bnb-booking-app/cmd/pkg/models"
+	"github.com/doha-ms/bnb-booking-app/internal/config"
+	"github.com/doha-ms/bnb-booking-app/internal/models"
+	"github.com/justinas/nosurf"
 )
 
 // tc (Template Cache) is a global locker.
 // It stores parsed templates in RAM so we don't read the disk on every request.
 // Mechanical Note: map[string] is the filename, *template.Template is the parsed result.
-var tc = make(map[string]*template.Template)
+//var tc = make(map[string]*template.Template)
 
 // RenderTemplateTest is for development only.
 // It bypasses the cache to allow for "Live Reloading" of HTML changes,
@@ -86,11 +87,11 @@ func NewTemplate(a *config.AppConfig) {
 	app = a
 }
 
-func AddDefaultData(td *models.TemplateData) *models.TemplateData {
-
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+td.CSRFToken=nosurf.Token(r)
 	return td
 }
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request,tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	if app.UseCache {
 		tc = app.TemplateCache
@@ -103,7 +104,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 		log.Fatal("couldnt get template from ")
 	}
 	buf := new(bytes.Buffer)
-	td = AddDefaultData(td)
+	td = AddDefaultData(td,r)
 	err := t.Execute(buf, td)
 	if err != nil {
 		log.Println("Error executing template:", err) // CHECK THIS LOG!

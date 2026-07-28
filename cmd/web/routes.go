@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/doha-ms/bnb-booking-app/cmd/pkg/config"
-	"github.com/doha-ms/bnb-booking-app/cmd/pkg/handlers"
+	"github.com/doha-ms/bnb-booking-app/internal/config"
+	"github.com/doha-ms/bnb-booking-app/internal/handlers"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -24,6 +24,8 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/search-availability", handlers.Repo.Availability)
 	mux.Get("/contact", handlers.Repo.Contact)
 	mux.Post("/search-availability", handlers.Repo.PostAvailability)
+		mux.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
+
 
 		mux.Get("/make-reservation", handlers.Repo.Reservation)
 
