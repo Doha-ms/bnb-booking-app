@@ -55,9 +55,14 @@
         <div class="col-md-6">
 <h1>make reservation</h1>
 <form action="" method="post" class="needs-validation novalidate">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+   
     <div class="form-group mt-5" >
         <label for="first_name"> First Name:</label>
-        <input type="text" name="first_name" id="first_name" class="form-control" autocomplete="off">
+        {{with .Form.Errors.Get "first_name"}}
+        <label class="text-danger">{{.}}</label>
+        {{end}}
+        <input type="text" name="first_name" id="first_name" class="form-control" autocomplete="off" value="{{$res.FirstName}}">
     </div>
     <div class="form-group mt-5" >
         <label for="last-name"> Last Name:</label>

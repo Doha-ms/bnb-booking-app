@@ -7,3 +7,5 @@ require (
 	github.com/go-chi/chi v1.5.5
 	github.com/justinas/nosurf v1.2.0
 )
+
+require github.com/asaskevich/govalidator/v12 v12.0.0 // indirect
