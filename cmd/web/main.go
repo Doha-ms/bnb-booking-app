@@ -1,12 +1,14 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"time"
 
 	"github.com/doha-ms/bnb-booking-app/internal/config"
 	"github.com/doha-ms/bnb-booking-app/internal/handlers"
+	"github.com/doha-ms/bnb-booking-app/internal/models"
 	"github.com/doha-ms/bnb-booking-app/internal/render"
 
 	"net/http"
@@ -20,7 +22,10 @@ var app config.AppConfig
 var session *scs.SessionManager
 
 func main() {
-
+	// what am i going to put in the session
+	gob.Register(models.Reservation{})
+	
+	// change this to true when in production
 	app.InProduction = false
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour

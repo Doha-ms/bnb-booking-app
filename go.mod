@@ -8,4 +8,4 @@ require (
 	github.com/justinas/nosurf v1.2.0
 )
 
-require github.com/asaskevich/govalidator/v12 v12.0.0 // indirect
+require github.com/asaskevich/govalidator/v12 v12.0.0 // direct
